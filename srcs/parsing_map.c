@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/21 22:01:44 by gkehren          ###   ########.fr       */
+/*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
+/*   Updated: 2022/06/21 22:02:17 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "../include/so_long.h"
 
-/*******INCLUDE*******/
-
-# include <stdlib.h>
-# include <unistd.h>
-
-/*******MAP*******/
-
-int	parse_map(char *file);
-
-#endif
+int	parse_map(char *file)
+{
+	(void)file;
+	return (0);
+}
