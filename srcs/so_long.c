@@ -6,11 +6,20 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/21 20:29:00 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/22 18:21:32 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+void	memfree(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		free(s[i++]);
+}
 
 int	main(int argc, char **argv)
 {
