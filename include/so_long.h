@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/23 14:24:54 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/23 18:03:44 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,19 @@ typedef struct s_parse_map
 /*******MAP*******/
 
 char		*get_next_line(int fd);
-t_parse_map	parse_map(char *file);
+int			parse_map(char *file, t_map *map);
+void		map_line_close(t_parse_map *parse_map, int line);
+void		map_side_close(t_parse_map *parse_map, int line);
+void		map_is_close(t_parse_map *parse_map);
+void		map_is_rectangle(t_parse_map *parse_map);
+void		map_is_fill(t_parse_map *parse_map);
 
 /*******UTILS*******/
 
 void		memfree(char **s);
+char		*ft_strcpy(char *dst, char *src);
+size_t		ft_strlen(char *s);
+char		*ft_strjoin(char *s1, char *s2);
+int			ft_strchr(char *s, int c);
 
 #endif

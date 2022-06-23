@@ -6,11 +6,11 @@
 #    By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 15:21:14 by gkehren           #+#    #+#              #
-#    Updated: 2022/06/22 15:51:10 by gkehren          ###   ########.fr        #
+#    Updated: 2022/06/23 17:08:23 by gkehren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES:=	so_long parsing_map get_next_line
+FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map
 FILES_BONUS:= so_long_bonus
 
 NAME:= so_long
