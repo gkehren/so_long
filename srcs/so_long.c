@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/22 18:21:32 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/23 14:00:21 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	memfree(char **s)
 
 int	main(int argc, char **argv)
 {
-	if (argc == 2)
-		parse_map(argv[1]);
+	if (argc != 2)
+		return (write(1, "Please give a path map\n", 24), 0);
+	parse_map(argv[1]);
 	return (0);
 }

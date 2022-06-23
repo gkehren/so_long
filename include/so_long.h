@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/22 18:20:30 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/23 14:24:54 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 
 /*******STRUCT*******/
 
-typedef struct	s_pos
+typedef struct s_pos
 {
 	float	x;
 	float	y;
 }	t_pos;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char	**map;
 	size_t	width;
@@ -37,28 +37,28 @@ typedef struct	s_map
 	t_pos	*exit;
 }	t_map;
 
-typedef struct	s_parse_map
+typedef struct s_parse_map
 {
 	char	**map;
 
 	bool	is_rectangle;
 	bool	is_close;
-	bool	is_valid_char;
 
 	size_t	len_line;
+	size_t	nb_invalid_char;
+	size_t	nb_line;
 	size_t	nb_player;
 	size_t	nb_exit;
-	size_t	nb_collectible;
+	size_t	nb_item;
 }	t_parse_map;
-
 
 /*******MAP*******/
 
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 t_parse_map	parse_map(char *file);
 
 /*******UTILS*******/
 
-void	memfree(char **s);
+void		memfree(char **s);
 
 #endif
