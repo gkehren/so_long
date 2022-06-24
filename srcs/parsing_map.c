@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/24 15:39:54 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/24 17:36:42 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,26 @@ bool	put_error(t_parse_map *parse_map)
 
 void	fill_map(t_parse_map *parse_map, t_map *map)
 {
-	map->map = parse_map->map;
-	map->height = parse_map->nb_line;
-	map->width = parse_map->len_line - 1;
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	map->map = (char **)malloc(sizeof(char *) * (parse_map->nb_line + 2));
+	while (j < parse_map->nb_line + 1)
+	{
+		i = 0;
+		map->map[j] = (char *)malloc(sizeof(char) * (parse_map->len_line + 1));
+		while (parse_map->map[j][i] != '\n' && parse_map->map[j][i])
+		{
+			map->map[j][i] = parse_map->map[j][i];
+			i++;
+		}
+		map->map[j][i] = '\0';
+		j++;
+	}
+	map->map[j] = NULL;
+	map->height = parse_map->nb_line + 1;
+	map->width = parse_map->len_line;
 }
 
 int	parse_map(char *file, t_map *map)
