@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/23 18:06:11 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:28:00 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,25 @@ char	**get_map_from_file(char *file)
 
 bool	put_error(t_parse_map *parse_map)
 {
-	if (parse_map->nb_invalid_char > 0)
-		write(1, "Il y a un caractère invalide dans la carte !\n", 47);
-	if (parse_map->nb_player == 0)
-		write(1, "Il manque un point d'apparition dans la carte !\n", 49);
-	if (parse_map->nb_exit == 0)
-		write(1, "Il manque une sortie dans la carte !\n", 38);
-	if (parse_map->nb_item == 0)
-		write(1, "Il manque des collectibles dans la carte !\n", 44);
-	if (parse_map->is_close == 0)
-		write(1, "La carte n'est pas correctement fermée !\n", 43);
-	if (parse_map->is_rectangle == 0)
-		write(1, "La carte ne forme pas un rectangle !\n", 38);
 	if (parse_map->nb_player == 0 || parse_map->nb_exit == 0
+		|| parse_map->nb_item == 0 || parse_map->is_close == 0
+		|| parse_map->is_rectangle == 0 || parse_map->nb_invalid_char > 0)
+		write(1, "Error\n", 7);
+	if (!parse_map->map[0])
+		return (write(1, " - La carte ne peut pas etre vide !\n", 37), 0);
+	if (parse_map->nb_invalid_char > 0)
+		write(1, " - Il y a un caractère invalide dans la carte !\n", 50);
+	if (parse_map->nb_player == 0)
+		write(1, " - Il manque un point d'apparition dans la carte !\n", 52);
+	if (parse_map->nb_exit == 0)
+		write(1, " - Il manque une sortie dans la carte !\n", 41);
+	if (parse_map->nb_item == 0)
+		write(1, " - Il manque des collectibles dans la carte !\n", 47);
+	if (parse_map->is_close == 0)
+		write(1, " - La carte n'est pas correctement fermée !\n", 46);
+	if (parse_map->is_rectangle == 0)
+		write(1, " - La carte ne forme pas un rectangle !\n", 41);
+	if (!parse_map->map || parse_map->nb_player == 0 || parse_map->nb_exit == 0
 		|| parse_map->nb_item == 0 || parse_map->is_close == 0
 		|| parse_map->is_rectangle == 0 || parse_map->nb_invalid_char > 0)
 		return (0);
@@ -85,9 +91,12 @@ int	parse_map(char *file, t_map *map)
 	parse_map.nb_item = 0;
 	parse_map.nb_player = 0;
 	parse_map.nb_invalid_char = 0;
-	map_is_close(&parse_map);
-	map_is_rectangle(&parse_map);
-	map_is_fill(&parse_map);
+	if (parse_map.map[0])
+	{
+		map_is_close(&parse_map);
+		map_is_rectangle(&parse_map);
+		map_is_fill(&parse_map);
+	}
 	if (put_error(&parse_map) == 0)
 		return (1);
 	fill_map(&parse_map, map);
