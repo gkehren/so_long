@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/24 15:28:00 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:35:41 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	**get_map_from_file(char *file)
 
 	i = 0;
 	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (write(1, "Error\n - Le fichier n'a pas pu être ouvert !\n", 46), NULL);
 	line = get_number_line(fd) + 1;
 	map = (char **)malloc(sizeof(char *) * line);
 	close(fd);
@@ -55,7 +57,7 @@ bool	put_error(t_parse_map *parse_map)
 		|| parse_map->is_rectangle == 0 || parse_map->nb_invalid_char > 0)
 		write(1, "Error\n", 7);
 	if (!parse_map->map[0])
-		return (write(1, " - La carte ne peut pas etre vide !\n", 37), 0);
+		return (write(1, " - La carte ne peut pas être vide !\n", 37), 0);
 	if (parse_map->nb_invalid_char > 0)
 		write(1, " - Il y a un caractère invalide dans la carte !\n", 50);
 	if (parse_map->nb_player == 0)
@@ -91,6 +93,8 @@ int	parse_map(char *file, t_map *map)
 	parse_map.nb_item = 0;
 	parse_map.nb_player = 0;
 	parse_map.nb_invalid_char = 0;
+	if (!parse_map.map)
+		return (1);
 	if (parse_map.map[0])
 	{
 		map_is_close(&parse_map);
