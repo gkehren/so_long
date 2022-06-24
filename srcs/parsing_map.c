@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/24 15:35:41 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/24 15:39:54 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ char	**get_map_from_file(char *file)
 	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (write(1, "Error\n - Le fichier n'a pas pu être ouvert !\n", 46), NULL);
+	{
+		write(1, "Error\n - Le fichier n'a pas pu être ouvert !\n", 46);
+		return (NULL);
+	}
 	line = get_number_line(fd) + 1;
 	map = (char **)malloc(sizeof(char *) * line);
 	close(fd);
@@ -104,5 +107,7 @@ int	parse_map(char *file, t_map *map)
 	if (put_error(&parse_map) == 0)
 		return (1);
 	fill_map(&parse_map, map);
+	memfree(parse_map.map);
+	free(parse_map.map);
 	return (0);
 }
