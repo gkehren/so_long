@@ -6,11 +6,11 @@
 #    By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 15:21:14 by gkehren           #+#    #+#              #
-#    Updated: 2022/06/23 17:08:23 by gkehren          ###   ########.fr        #
+#    Updated: 2022/06/26 04:58:22 by gkehren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map
+FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map display
 FILES_BONUS:= so_long_bonus
 
 NAME:= so_long
@@ -24,7 +24,7 @@ HDRPATH:=include/
 CCHPATH:=obj/
 CCHPATH_BONUS:=obj/
 IFLAGS:=-I ${HDRPATH}
-CFLAGS:=-Wall -Wextra -Werror -g3 ${IFLAGS}
+CFLAGS:=-Wall -Wextra -Werror -g3 ${IFLAGS} -I minilibx/
 # ==================
 
 # ----- Colors -----
@@ -49,12 +49,13 @@ all: ${NAME}
 
 ${NAME}: ${OBJ}
 	@echo ${CYAN} " - Compiling $@" $(RED)
-	@${CC} ${CFLAGS} ${SRC} -o ${NAME}
+	make -C minilibx
+	@${CC} ${CFLAGS} ${SRC} -Lmlx_linux -lmlx_Linux -L minilibx/ -Imlx_linux -lXext -lX11 -lm -lz -o ${NAME}
 	@echo $(GREEN) " - OK" $(EOC)
 
 ${CCHPATH}%.o: ${SRCPATH}%.c | ${CCHF}
 	@echo ${PURPLE} " - Compiling $< into $@" ${EOC}
-	@${CC} ${CFLAGS} -c $< -o $@
+	@${CC} ${CFLAGS} -Imlx_linux -O3 -c $< -o $@
 
 ${BONUS}: ${OBJ_BONUS}
 	@echo ${CYAN} " - Compiling $@" $(RED)
@@ -75,10 +76,12 @@ $(CCHF):
 bonus: ${BONUS}
 
 clean:
+	@make -C minilibx clean
 	@rm -rf ${CCHPATH}
 	@rm -f ${CCHF}
 
 fclean:	clean
+	@make -C minilibx clean
 	@rm -f ${NAME}
 	@rm -f ${BONUS}
 	@rm -rf ${NAME}.dSYM/

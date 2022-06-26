@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/23 18:03:44 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/26 03:21:35 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include "../minilibx/mlx.h"
 
 /*******STRUCT*******/
 
@@ -52,6 +53,14 @@ typedef struct s_parse_map
 	size_t	nb_item;
 }	t_parse_map;
 
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
+
 /*******MAP*******/
 
 char		*get_next_line(int fd);
@@ -61,6 +70,7 @@ void		map_side_close(t_parse_map *parse_map, int line);
 void		map_is_close(t_parse_map *parse_map);
 void		map_is_rectangle(t_parse_map *parse_map);
 void		map_is_fill(t_parse_map *parse_map);
+void		display_map(t_map *map);
 
 /*******UTILS*******/
 
