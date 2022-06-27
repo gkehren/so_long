@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/27 19:10:04 by gkehren          ###   ########.fr       */
+/*   Created: 2022/06/27 18:42:52 by gkehren           #+#    #+#             */
+/*   Updated: 2022/06/27 19:15:08 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	memfree(char **s)
+int	destroy_hook(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		free(s[i++]);
+	mlx_loop_end(map->mlx);
+	return (0);
 }
 
-int	main(int argc, char **argv)
+int	start_game(t_map *map)
 {
-	t_map	map;
-
-	if (argc != 2)
-		return (write(1, "Please give a path map\n", 24), 0);
-	if (parse_map(argv[1], &map) == 1)
-		return (0);
-	//display_map(&map);
-	start_game(&map);
-	return (memfree(map.map), free(map.map), 0);
+	mlx_hook(map->win, 17, 0, destroy_hook, map->mlx);
+	mlx_loop(map->mlx);
+	return (0);
 }
