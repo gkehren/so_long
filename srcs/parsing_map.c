@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/24 17:36:42 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/28 21:46:44 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,33 @@ void	fill_map(t_parse_map *parse_map, t_map *map)
 	map->width = parse_map->len_line;
 }
 
+int	check_name(char *file)
+{
+	size_t	i;
+
+	i = 0;
+	while (file[i])
+		i++;
+	if (i < 4)
+		return (1);
+	else if (file[i - 4]  == '.' && file[i - 3] == 'b'
+			&& file[i - 2] == 'e' && file[i - 1] == 'r')
+			return (0);
+	return (1);
+
+}
+
 int	parse_map(char *file, t_map *map)
 {
 	t_parse_map	parse_map;
 
-	parse_map.map = get_map_from_file(file);
+	if (check_name(file) == 1)
+		return (write(1, "Le fichier doit être en .ber !\n", 33), 1);
 	parse_map.nb_exit = 0;
 	parse_map.nb_item = 0;
 	parse_map.nb_player = 0;
 	parse_map.nb_invalid_char = 0;
+	parse_map.map = get_map_from_file(file);
 	if (!parse_map.map)
 		return (1);
 	if (parse_map.map[0])

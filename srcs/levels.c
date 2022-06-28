@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:29:45 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/27 18:31:17 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/28 22:27:21 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,11 @@ bool	generate_level(t_mlx *mlx, t_map *map)
 	mlx->level.player_pos = get_pos(map, 'P');
 	mlx->level.camera = mlx->level.player_pos;
 	return (true);
+}
+
+void	destroy_level(t_level *level)
+{
+	free(level->walls);
+	free(level->corner);
+	free(level->enemy);
 }

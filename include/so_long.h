@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/27 19:06:16 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/28 22:36:23 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ typedef struct s_mlx
 	void	*win;
 
 	t_map	*map;
+	size_t	map_count;
+	size_t	cur_map;
 	t_img	images[nb_assets];
 	t_img	canvas;
 	t_level	level;
@@ -184,11 +186,20 @@ void		map_side_close(t_parse_map *parse_map, int line);
 void		map_is_close(t_parse_map *parse_map);
 void		map_is_rectangle(t_parse_map *parse_map);
 void		map_is_fill(t_parse_map *parse_map);
-int			display_map(t_map *map);
 bool		load_assets(void *mlx, t_img *images);
 bool		generate_image(void *mlx, unsigned int w, unsigned int h, t_img *img);
 bool		generate_level(t_mlx *mlx, t_map *map);
-int			start_game(t_map *map);
+void		mem_set(void *dst, unsigned char b, size_t n);
+int			start_game(t_map *map, size_t map_count);
+int			generate_game(t_mlx *mlx, t_map *map, size_t map_count);
+void		destroy_level(t_level *level);
+
+/*******HOOK*******/
+
+int	destroy_hook(t_mlx *mlx);
+int	key_press_hook(unsigned long key, t_mlx *mlx);
+int	key_release_hook(unsigned long key, t_mlx *mlx);
+int	loop_hook(t_mlx *mlx);
 
 /*******UTILS*******/
 
