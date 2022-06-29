@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 17:29:45 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/28 22:27:21 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/29 17:54:22 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_fpos	get_pos(t_map *map, char c)
 		}
 		y++;
 	}
-	return ((t_fpos){0,0});
+	return ((t_fpos){0, 0});
 }
 
 bool	generate_level(t_mlx *mlx, t_map *map)

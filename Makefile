@@ -6,11 +6,11 @@
 #    By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 15:21:14 by gkehren           #+#    #+#              #
-#    Updated: 2022/06/28 22:01:27 by gkehren          ###   ########.fr        #
+#    Updated: 2022/06/29 15:00:49 by gkehren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map display images levels hooks
+FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map display images levels hooks render camera put_image
 FILES_BONUS:= so_long_bonus
 
 NAME:= so_long

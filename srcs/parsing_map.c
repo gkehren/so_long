@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/28 21:46:44 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/29 13:09:47 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,10 @@ int	check_name(char *file)
 		i++;
 	if (i < 4)
 		return (1);
-	else if (file[i - 4]  == '.' && file[i - 3] == 'b'
-			&& file[i - 2] == 'e' && file[i - 1] == 'r')
-			return (0);
+	else if (file[i - 4] == '.' && file[i - 3] == 'b'
+		&& file[i - 2] == 'e' && file[i - 1] == 'r')
+		return (0);
 	return (1);
-
 }
 
 int	parse_map(char *file, t_map *map)

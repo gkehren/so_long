@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 14:57:04 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/27 18:16:12 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/29 17:30:21 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 static const char	**path(void)
 {
-	static const char	*assets_path[nb_assets] = {
-		"assets/player_idle.xpm",
-		"assets/player_walking.xpm",
-		"assets/player_fly.xpm",
+	static const char	*path[NB_ASSETS] = {
+		"assets/player.xpm",
+		"assets/key.xpm",
+		"assets/chest.xpm",
+		"assets/enemy.xpm",
 		"assets/wall.xpm",
-		"assets/enemy_idle.xpm",
-		"assets/enemy_walking.xpm",
-		"assets/enemy_attack.xpm",
 	};
 
-	return (assets_path);
+	return (path);
 }
 
 inline static bool	get_img_addr(t_img *img)
@@ -33,10 +31,10 @@ inline static bool	get_img_addr(t_img *img)
 	int	bpp;
 
 	img->addr = (unsigned char *)mlx_get_data_addr(img->image,
-													&bpp,
-													(int *)&img->line_len,
-													&endian);
-	return(img->addr && bpp == 32 && endian == 0);
+			&bpp,
+			(int *)&img->line_len,
+			&endian);
+	return (img->addr && bpp == 32 && endian == 0);
 }
 
 bool	load_asset(void	*mlx, const char *path, t_img *img)
@@ -63,7 +61,7 @@ bool	load_assets(void *mlx, t_img *images)
 	size_t	i;
 
 	i = 0;
-	while (i < nb_assets)
+	while (i < NB_ASSETS)
 	{
 		if (!load_asset(mlx, (char *)path()[i], &images[i]))
 		{

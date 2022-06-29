@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 03:17:49 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/28 22:37:31 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/29 17:54:52 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ int	generate_game(t_mlx *mlx, t_map *map, size_t map_count)
 		return (mlx_destroy_display(mlx->mlx), free(mlx->mlx), 1);
 	if (!generate_image(mlx->mlx, WIDTH, HEIGHT, &mlx->canvas))
 		return (mlx_destroy_window(mlx->mlx, mlx->win),
-				mlx_destroy_display(mlx->mlx), free(mlx->mlx), 1);
+			mlx_destroy_display(mlx->mlx), free(mlx->mlx), 1);
 	if (!generate_level(mlx, &map[0]))
 		return (mlx_destroy_image(mlx->mlx, mlx->canvas.image),
-				mlx_destroy_window(mlx->mlx, mlx->win),
-				mlx_destroy_display(mlx->mlx), free(mlx->mlx), 1);
+			mlx_destroy_window(mlx->mlx, mlx->win),
+			mlx_destroy_display(mlx->mlx), free(mlx->mlx), 1);
 	mlx->map = map;
 	mlx->cur_map = 0;
 	mlx->map_count = map_count;

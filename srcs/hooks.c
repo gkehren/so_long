@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 22:00:09 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/28 22:36:04 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/29 14:33:21 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	destroy_hook(t_mlx *mlx)
 	return (0);
 }
 
-static void update_movement_input(t_mlx *mlx)
+static void	update_movement_input(t_mlx *mlx)
 {
 	float	inv_len;
 
@@ -39,7 +39,8 @@ static void update_movement_input(t_mlx *mlx)
 		mlx->level.movement_input.y += 1.0;
 	if (mlx->level.press_right)
 		mlx->level.movement_input.x += 1.0;
-	if (mlx->level.movement_input.x != 0.0 || mlx->level.movement_input.y != 0.0)
+	if (mlx->level.movement_input.x != 0.0
+		|| mlx->level.movement_input.y != 0.0)
 	{
 		inv_len = 1.0 / sqrtf(
 				mlx->level.movement_input.x * mlx->level.movement_input.x
@@ -47,6 +48,24 @@ static void update_movement_input(t_mlx *mlx)
 		mlx->level.movement_input.x *= inv_len;
 		mlx->level.movement_input.y *= inv_len;
 	}
+}
+
+int	space_key_hook(t_mlx *mlx)
+{
+	if (mlx->level.game_state == game_win)
+	{
+		if (mlx->cur_map == mlx->map_count - 1)
+			return (mlx_loop_end(mlx->mlx));
+		destroy_level(&mlx->level);
+		mlx->cur_map++;
+		generate_level(mlx, &mlx->map[mlx->cur_map]);
+	}
+	else if (mlx->level.game_state == game_lose)
+	{
+		destroy_level(&mlx->level);
+		generate_level(mlx, &mlx->map[mlx->cur_map]);
+	}
+	return (0);
 }
 
 int	key_release_hook(unsigned long key, t_mlx *mlx)
@@ -62,28 +81,13 @@ int	key_release_hook(unsigned long key, t_mlx *mlx)
 	else if (key == RIGHT_KEY)
 		mlx->level.press_right = false;
 	else if (key == SPACE_KEY)
-	{
-		if (mlx->level.game_state == game_win)
-		{
-			if (mlx->cur_map == mlx->map_count - 1)
-				return (mlx_loop_end(mlx->mlx));
-			destroy_level(&mlx->level);
-			mlx->cur_map++;
-			generate_level(mlx, &mlx->map[mlx->cur_map]);
-		}
-		else if (mlx->level.game_state == game_lose)
-		{
-			destroy_level(&mlx->level);
-			generate_level(mlx, &mlx->map[mlx->cur_map]);
-		}
-		return (0);
-	}
+		return (space_key_hook(mlx), 0);
 	update_movement_input(mlx);
 	//update_player_dir(mlx);
 	return (0);
 }
 
-int key_press_hook(unsigned long key, t_mlx *mlx)
+int	key_press_hook(unsigned long key, t_mlx *mlx)
 {
 	if (key == UP_KEY)
 		mlx->level.press_up = true;
@@ -100,7 +104,6 @@ int key_press_hook(unsigned long key, t_mlx *mlx)
 
 int	loop_hook(t_mlx *mlx)
 {
-	(void)mlx;
 	//move_player(mlx);
 	//update_enemies(mlx);
 	//count_movements(mlx);
@@ -111,6 +114,6 @@ int	loop_hook(t_mlx *mlx)
 	//animate_enemies(mlx);
 	//animate_coins(mlx);
 	//animate_exit(mlx);
-	//render_game(mlx);
+	render_game(mlx);
 	return (0);
 }

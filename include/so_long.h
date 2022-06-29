@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/28 22:36:23 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/06/29 17:29:56 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,16 @@
 // Size of the window
 # define WIDTH 1280
 # define HEIGHT 720
-# define nb_assets 7
+# define NB_ASSETS 5
+# define PIXELS_PER_UNIT 32.0f
 
 /*******STRUCT*******/
+
+typedef struct s_pos
+{
+	size_t	x;
+	size_t	y;
+}	t_pos;
 
 typedef struct s_fpos
 {
@@ -41,6 +48,32 @@ typedef struct s_fvec
 	float	x;
 	float	y;
 }	t_fvec;
+
+typedef struct s_rect
+{
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+}	t_rect;
+
+typedef struct s_srect
+{
+	int	x;
+	int	y;
+	int	width;
+	int	height;
+	int	uv_x;
+	int	uv_y;
+}	t_srect;
+
+typedef struct s_color
+{
+	unsigned char	a;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}	t_rgba;
 
 typedef enum e_wall_tile
 {
@@ -84,6 +117,15 @@ typedef enum e_game_state
 	game_win,
 	game_lose,
 }	t_state;
+
+typedef enum e_game_image
+{
+	IMG_PLAYER,
+	IMG_ITEM,
+	IMG_EXIT,
+	IMG_ENEMY,
+	IMG_WALL,
+}	t_gimg;
 
 typedef struct s_level
 {
@@ -157,7 +199,7 @@ typedef struct s_mlx
 	t_map	*map;
 	size_t	map_count;
 	size_t	cur_map;
-	t_img	images[nb_assets];
+	t_img	images[NB_ASSETS];
 	t_img	canvas;
 	t_level	level;
 }	t_mlx;
@@ -193,6 +235,9 @@ void		mem_set(void *dst, unsigned char b, size_t n);
 int			start_game(t_map *map, size_t map_count);
 int			generate_game(t_mlx *mlx, t_map *map, size_t map_count);
 void		destroy_level(t_level *level);
+t_pos		pos_to_screen(t_mlx *mlx, t_fpos pos);
+void		render_game(t_mlx *mlx);
+void		put_image(t_mlx *mlx, t_rect dst, t_img *src_img, t_srect src);
 
 /*******HOOK*******/
 

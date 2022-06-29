@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/29 17:35:12 by gkehren          ###   ########.fr       */
+/*   Created: 2022/06/29 13:40:28 by gkehren           #+#    #+#             */
+/*   Updated: 2022/06/29 13:43:48 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	memfree(char **s)
+t_pos pos_to_screen(t_mlx *mlx, t_fpos pos)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-		free(s[i++]);
-}
-
-int	main(int argc, char **argv)
-{
-	t_map	map;
-	size_t	map_count;
-
-	if (argc != 2)
-		return (write(1, "Please give a path map\n", 24), 0);
-	map_count = (size_t)argc - 1;
-	if (parse_map(argv[1], &map) == 1)
-		return (0);
-	start_game(&map, map_count);
-	return (memfree(map.map), free(map.map), 0);
+	pos.x -= mlx->level.camera.x;
+	pos.y -= mlx->level.camera.y;
+	pos.x *= PIXELS_PER_UNIT;
+	pos.y *= PIXELS_PER_UNIT;
+	return ((t_pos){
+		(size_t)pos.x + WIDTH / 2,
+		(size_t)pos.y + HEIGHT / 2
+	});
 }
