@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/29 13:09:47 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/12 23:30:27 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ bool	put_error(t_parse_map *parse_map)
 	return (1);
 }
 
-void	fill_map(t_parse_map *parse_map, t_map *map)
+void	fill_map(t_parse_map *parse_map, t_game *map)
 {
 	size_t	i;
 	size_t	j;
@@ -102,6 +102,7 @@ void	fill_map(t_parse_map *parse_map, t_map *map)
 	map->map[j] = NULL;
 	map->height = parse_map->nb_line + 1;
 	map->width = parse_map->len_line;
+	map->enemies = parse_map->nb_enemy;
 }
 
 int	check_name(char *file)
@@ -119,7 +120,7 @@ int	check_name(char *file)
 	return (1);
 }
 
-int	parse_map(char *file, t_map *map)
+int	parse_map(char *file, t_game *map)
 {
 	t_parse_map	parse_map;
 
@@ -129,6 +130,7 @@ int	parse_map(char *file, t_map *map)
 	parse_map.nb_item = 0;
 	parse_map.nb_player = 0;
 	parse_map.nb_invalid_char = 0;
+	parse_map.nb_enemy = 0;
 	parse_map.map = get_map_from_file(file);
 	if (!parse_map.map)
 		return (1);

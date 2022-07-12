@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/23 17:02:16 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/23 17:06:58 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/12 23:30:55 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	map_is_fill(t_parse_map *parse_map)
 		{
 			if (parse_map->map[j][i] != 'P' && parse_map->map[j][i] != 'E'
 				&& parse_map->map[j][i] != 'C' && parse_map->map[j][i] != '0'
-				&& parse_map->map[j][i] != '1')
+				&& parse_map->map[j][i] != '1' && parse_map->map[j][i] != 'X')
 				parse_map->nb_invalid_char++;
 			if (parse_map->map[j][i] == 'P')
 				parse_map->nb_player++;
@@ -109,6 +109,8 @@ void	map_is_fill(t_parse_map *parse_map)
 				parse_map->nb_exit++;
 			if (parse_map->map[j][i] == 'C')
 				parse_map->nb_item++;
+			if (parse_map->map[j][i] == 'X')
+				parse_map->nb_enemy++;
 			i++;
 		}
 		j++;

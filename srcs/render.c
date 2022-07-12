@@ -5,49 +5,99 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/29 13:20:15 by gkehren           #+#    #+#             */
-/*   Updated: 2022/06/29 17:58:48 by gkehren          ###   ########.fr       */
+/*   Created: 2022/07/13 00:30:53 by gkehren           #+#    #+#             */
+/*   Updated: 2022/07/13 01:52:59 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-//static void	render_dead(t_pos pos, t_mlx *mlx)
-//{
-//	pos.x -= 22;
-//	pos.y -= 22;
-//	put_image(
-//		mlx, (t_rect){pos.x, pos.y, 90, 90},
-//		&mlx->images[IMG_DEAD],
-//		(t_srect){90 * mlx->level.dead_anim_frame, 0, 90, 90, 0, 0});
-//}
-
-void	render_player(t_mlx *mlx)
+void	*put_image(t_game *g, int i, int j)
 {
-	t_pos	pos;
+	void	*img;
 
-	pos = pos_to_screen(mlx, mlx->level.player_pos);
-	//if (mlx->level.dead)
-	//	render_dead(pos, mlx);
-	if (mlx->level.game_state == game_playing)
-		return ;
-	pos.x -= 16;
-	pos.y -= 16;
-	put_image(mlx, (t_rect){pos.x, pos.y, 32, 32},
-			&mlx->images[IMG_PLAYER],
-			(t_srect){32 * mlx->level.player_anim_frame, 32
-			* mlx->level.player_dir, 32, 32, 0, 0});
+	if (i % 2 == 0)
+	{
+		if (j % 2 == 0)
+			img = get_image(g, "./assets/white.xpm");
+		else
+			img = get_image(g, "./assets/black.xpm");
+	}
+	else
+	{
+		if (j % 2 != 0)
+			img = get_image(g, "./assets/white.xpm");
+		else
+			img = get_image(g, "./assets/black.xpm");
+	}
+	return (img);
 }
 
-void	render_game(t_mlx *mlx)
+void	render_map(char **map, t_game *g, t_player *p, int rr)
 {
-	mem_set(mlx->canvas.addr, 0x00, mlx->canvas.line_len * HEIGHT);
-	//render_background(mlx);
-	//render_corner(mlx);
-	//render_exit(mlx);
-	//render_walls(mlx);
-	//render_enemies(mlx);
-	render_player(mlx);
-	//render_move_count(mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->canvas.image, 0, 0);
+	int	i;
+	int	j;
+
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] == '1' && rr)
+				render_image(g, "./assets/wall.xpm", i, j);
+			else if (map[i][j] == 'E')
+				render_image(g, g->exit, i, j);
+			else if (map[i][j] == 'C' && rr)
+				render_image(g, "./assets/coin.xpm", i, j);
+			else if (map[i][j] != '0' && map[i][j] != 'X' &&
+				map[i][j] != 'P' && rr)
+			{
+				write(1, "Error\n - La carte n'est pas valide\n", 36);
+				exit(1);
+			}
+		}
+	}
+	render_image(g, g->player, p->y, p->x);
+}
+
+void	render_background(char **map, t_game g)
+{
+	int		i;
+	int		j;
+	void	*img;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] && map[i][j] != '\0')
+		{
+			img = put_image(&g, i, j);
+			mlx_put_image_to_window(g.mlx, g.win, img,
+				j * PIXELS, i * PIXELS);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	render_image(t_game *g, char *path, int i, int j)
+{
+	void	*img;
+
+	img = get_image(g, path);
+	mlx_put_image_to_window(g->mlx, g->win, img,
+		j * PIXELS, i * PIXELS);
+}
+
+void	render_pixel(t_game *g, int i, int j)
+{
+	void	*img;
+
+	img = get_image(g, "./assets/white_image.xpm");
+	mlx_put_image_to_window (g->mlx, g->win, img, 0, 0);
+	img = put_image(g, i, j);
+	mlx_put_image_to_window (g->mlx, g->win, img, \
+		j * PIXELS, i * PIXELS);
 }
