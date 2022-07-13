@@ -6,11 +6,11 @@
 #    By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/21 15:21:14 by gkehren           #+#    #+#              #
-#    Updated: 2022/07/13 00:59:26 by gkehren          ###   ########.fr        #
+#    Updated: 2022/07/13 12:50:20 by gkehren          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map so_long_utils render hooks moves
+FILES:=	so_long parsing_map get_next_line get_next_line_utils check_map so_long_utils render hooks moves ft_itoa
 FILES_BONUS:= so_long_bonus
 
 NAME:= so_long

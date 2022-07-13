@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 01:24:08 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/13 13:51:02 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	t_player	p;
+	t_enemy		*e;
 }	t_game;
 
 typedef struct s_parse_map
@@ -102,10 +103,13 @@ void	move_down(char **map, t_player *p, t_game *g);
 void	move_up(char **map, t_player *p, t_game *g);
 void	move_left(char **map, t_player *p, t_game *g);
 void	move_right(char **map, t_player *p, t_game *g);
+void	get_direction(char **map, t_enemy *e, int i);
+void	check_coins_and_exit(t_game *g, char **map);
 
 /*******HOOKS*******/
 
 int	move_player(int keycode, t_game *g);
+int	move_enemy(t_game *g);
 
 /*******UTILS*******/
 
@@ -114,5 +118,6 @@ char		*ft_strcpy(char *dst, char *src);
 size_t		ft_strlen(char *s);
 char		*ft_strjoin(char *s1, char *s2);
 int			ft_strchr(char *s, int c);
+char		*ft_itoa(int n);
 
 #endif

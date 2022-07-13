@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:59:07 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 01:23:17 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/13 14:06:34 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ void	move_up(char **map, t_player *p, t_game *g)
 		p->y = p->y - 1;
 }
 
-void	move_left(char **map, t_player *p, t_game *g)
+void	move_right(char **map, t_player *p, t_game *g)
 {
 	if (map[p->y][p->x + 1] != '1' && map[p->y][p->x + 1] != 'E')
 		p->x = p->x + 1;
 	else if (map[p->y][p->x + 1] == 'E' && g->coins == g->total_coins)
 		p->x = p->x + 1;
-	g->player = "./images/thief-left.xpm";
+	g->player = "./assets/thief-left.xpm";
 }
 
-void	move_right(char **map, t_player *p, t_game *g)
+void	move_left(char **map, t_player *p, t_game *g)
 {
 	if (map[p->y][p->x - 1] != '1' && map[p->y][p->x - 1] != 'E')
 		p->x = p->x - 1;
 	else if (map[p->y][p->x - 1] == 'E' && g->coins == g->total_coins)
 		p->x = p->x - 1;
-	g->player = "./images/thief-right.xpm";
+	g->player = "./assets/thief-right.xpm";
 }

@@ -6,11 +6,54 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:38:35 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 01:25:43 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/13 14:07:00 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+void	check_collision(t_game *g)
+{
+	int	i;
+
+	i = 0;
+	while (i < g->enemies)
+	{
+		if (g->e[i].x == g->p.x && g->e[i].y == g->p.y)
+		{
+			write(1, "Perdu !\n", 9);
+			exit(1);
+		}
+		i++;
+	}
+}
+
+int	move_enemy(t_game *g)
+{
+	int		i;
+	char	*moves;
+
+	i = 0;
+	if (g->frame == 3000)
+	{
+		while (i < g->enemies)
+		{
+			render_pixel(g, g->e[i].y, g->e[i].x);
+			get_direction(g->map, g->e, i);
+			check_collision(g);
+			render_image(g, "./assets/cop.xpm", g->e[i].y, g->e[i].x);
+			moves = ft_itoa(g->move);
+			mlx_string_put(g->mlx, g->win, 10, 10,
+				0x00, moves);
+			free(moves);
+			i++;
+		}
+		g->frame = 0;
+	}
+	else
+		g->frame++;
+	return (0);
+}
 
 int	move_player(int keycode, t_game *g)
 {
@@ -20,23 +63,23 @@ int	move_player(int keycode, t_game *g)
 	i = g->p.x;
 	j = g->p.y;
 	render_pixel(g, g->p.y, g->p.x);
-	if (keycode == 125 || keycode == 1)
+	if (keycode == 115)
 		move_down(g->map, &g->p, g);
-	else if (keycode == 126 || keycode == 13)
+	else if (keycode == 119)
 		move_up(g->map, &g->p, g);
-	else if (keycode == 123 || keycode == 0)
+	else if (keycode == 100)
 		move_right(g->map, &g->p, g);
-	else if (keycode == 124 || keycode == 2)
+	else if (keycode == 97)
 		move_left(g->map, &g->p, g);
-	else if (keycode == 53)
+	else if (keycode == 65307)
 	{
 		mlx_destroy_window(g->mlx, g->win);
 		exit(1);
 	}
 	if (i != g->p.x || j != g->p.y)
 		g->move++;
-	//check_coins_and_exit(&g, g->map, g->p);
-	//check_collision(g->p);
+	check_coins_and_exit(g, g->map);
+	check_collision(g);
 	render_map(g->map, g, &g->p, 0);
 	return (0);
 }

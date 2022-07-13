@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:17:04 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 01:37:55 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/13 13:07:02 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,46 @@ void	get_player_and_enemies(char **map, t_player *p, t_enemy *e)
 				e[k++].dir = 1;
 			}
 		}
+	}
+}
+
+void	check_coins_and_exit(t_game *g, char **map)
+{
+	char	*moves;
+
+	if (map[g->p.y][g->p.x] == 'C')
+	{
+		g->coins++;
+		map[g->p.y][g->p.x] = 48;
+		render_pixel(g, g->p.y, g->p.x);
+	}
+	if (g->coins == g->total_coins)
+		g->exit = "./assets/open_door.xpm";
+	if (map[g->p.y][g->p.x] == 'E' && g->coins == g->total_coins)
+	{
+		write(1, "Victoire !\n", 12);
+		exit(1);
+	}
+	moves = ft_itoa(g->move);
+	mlx_string_put(g->mlx, g->win, 10, 10, 0x00000000, moves);
+	free(moves);
+}
+
+void	get_direction(char **map, t_enemy *e, int i)
+{
+	if (e[i].dir)
+	{
+		if (map[e[i].y + 1][e[i].x] != '1')
+			e[i].y = e[i].y + 1;
+		else
+			e[i].dir = 0;
+	}
+	else
+	{
+		if (map[e[i].y - 1][e[i].x] != '1')
+			e[i].y = e[i].y - 1;
+		else
+			e[i].dir = 1;
 	}
 }
 
