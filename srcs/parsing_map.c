@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 20:29:20 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 13:26:02 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 13:08:35 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,21 +104,6 @@ void	fill_map(t_parse_map *parse_map, t_game *map)
 	map->width = parse_map->len_line;
 	map->enemies = parse_map->nb_enemy;
 	map->total_coins = parse_map->nb_item;
-}
-
-int	check_name(char *file)
-{
-	size_t	i;
-
-	i = 0;
-	while (file[i])
-		i++;
-	if (i < 4)
-		return (1);
-	else if (file[i - 4] == '.' && file[i - 3] == 'b'
-		&& file[i - 2] == 'e' && file[i - 1] == 'r')
-		return (0);
-	return (1);
 }
 
 int	parse_map(char *file, t_game *map)

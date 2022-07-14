@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 14:42:07 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 13:08:08 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	close_window(t_game *g)
 	mlx_destroy_window(g->mlx, g->win);
 	exit(1);
 }
-#include <stdio.h>
+
 int	main(int argc, char **argv)
 {
 	t_game		g;
@@ -51,8 +51,6 @@ int	main(int argc, char **argv)
 	g.mlx = mlx_init();
 	g.win = mlx_new_window(g.mlx, (ft_strlen(g.map[0])) * PIXELS, g.width
 			* PIXELS, "so_long");
-	printf("player x = %d | y = %d\n", g.p.x, g.p.y);
-	printf("coins = %d | total coins = %d\n", g.coins, g.total_coins);
 	render_background(g.map, g);
 	mlx_key_hook(g.win, move_player, &g);
 	mlx_loop_hook(g.mlx, move_enemy, &g);

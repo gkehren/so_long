@@ -6,11 +6,26 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:17:04 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 13:07:02 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 13:08:44 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+int	check_name(char *file)
+{
+	size_t	i;
+
+	i = 0;
+	while (file[i])
+		i++;
+	if (i < 4)
+		return (1);
+	else if (file[i - 4] == '.' && file[i - 3] == 'b'
+		&& file[i - 2] == 'e' && file[i - 1] == 'r')
+		return (0);
+	return (1);
+}
 
 void	get_player_and_enemies(char **map, t_player *p, t_enemy *e)
 {
