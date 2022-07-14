@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 13:08:08 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 16:22:29 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	init(t_game *g)
 	g->total_coins = 0;
 	g->frame = 0;
 	g->move = 0;
-	g->player = "./assets/thief-left.xpm";
-	g->exit = "./assets/close_door.xpm";
+	g->player = "./assets/player_right.xpm";
+	g->exit = "./assets/chest_close.xpm";
 }
 
 int	close_window(t_game *g)
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	g.e = malloc(g.enemies * sizeof(t_enemy));
 	get_player_and_enemies(g.map, &g.p, g.e);
 	g.mlx = mlx_init();
-	g.win = mlx_new_window(g.mlx, (ft_strlen(g.map[0])) * PIXELS, g.width
+	g.win = mlx_new_window(g.mlx, (ft_strlen(g.map[0])) * PIXELS, g.height
 			* PIXELS, "so_long");
 	render_background(g.map, g);
 	mlx_key_hook(g.win, move_player, &g);

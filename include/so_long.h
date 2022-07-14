@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 13:08:56 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 15:56:05 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // Size of the window
 # define WIDTH 1280
 # define HEIGHT 720
-# define PIXELS 40
+# define PIXELS 32
 
 /*******STRUCT*******/
 

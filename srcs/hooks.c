@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:38:35 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/13 14:07:00 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 16:21:33 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	move_enemy(t_game *g)
 			render_pixel(g, g->e[i].y, g->e[i].x);
 			get_direction(g->map, g->e, i);
 			check_collision(g);
-			render_image(g, "./assets/cop.xpm", g->e[i].y, g->e[i].x);
+			render_image(g, "./assets/enemy_right.xpm", g->e[i].y, g->e[i].x);
 			moves = ft_itoa(g->move);
 			mlx_string_put(g->mlx, g->win, 10, 10,
 				0x00, moves);

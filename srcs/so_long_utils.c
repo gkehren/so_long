@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:17:04 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 13:08:44 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/14 13:47:04 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	check_coins_and_exit(t_game *g, char **map)
 		render_pixel(g, g->p.y, g->p.x);
 	}
 	if (g->coins == g->total_coins)
-		g->exit = "./assets/open_door.xpm";
+		g->exit = "./assets/chest_open.xpm";
 	if (map[g->p.y][g->p.x] == 'E' && g->coins == g->total_coins)
 	{
 		write(1, "Victoire !\n", 12);
