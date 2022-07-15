@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 15:56:05 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/15 12:07:13 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 
 /*******STRUCT*******/
 
-typedef	struct s_player
+typedef struct s_player
 {
 	int	x;
 	int	y;
@@ -91,26 +91,26 @@ int			check_name(char *file);
 
 /*******GAME*******/
 
-void	get_player_and_enemies(char **map, t_player *p, t_enemy *e);
-void	*get_image(t_game *g, char *path);
-void	render_pixel(t_game *g, int i, int j);
-void	render_image(t_game *g, char *path, int i, int j);
-void	render_background(char **map, t_game g);
-void	render_map(char **map, t_game *game, t_player *p, int rr);
+void		get_player_and_enemies(char **map, t_player *p, t_enemy *e);
+void		*get_image(t_game *g, char *path);
+void		render_pixel(t_game *g, int i, int j);
+void		render_image(t_game *g, char *path, int i, int j);
+void		render_background(char **map, t_game g);
+void		render_map(char **map, t_game *game, t_player *p, int rr);
 
 /*******MOVES*******/
 
-void	move_down(char **map, t_player *p, t_game *g);
-void	move_up(char **map, t_player *p, t_game *g);
-void	move_left(char **map, t_player *p, t_game *g);
-void	move_right(char **map, t_player *p, t_game *g);
-void	get_direction(char **map, t_enemy *e, int i);
-void	check_coins_and_exit(t_game *g, char **map);
+void		move_down(char **map, t_player *p, t_game *g);
+void		move_up(char **map, t_player *p, t_game *g);
+void		move_left(char **map, t_player *p, t_game *g);
+void		move_right(char **map, t_player *p, t_game *g);
+void		get_direction(char **map, t_enemy *e, int i);
+void		check_coins_and_exit(t_game *g, char **map);
 
 /*******HOOKS*******/
 
-int	move_player(int keycode, t_game *g);
-int	move_enemy(t_game *g);
+int			move_player(int keycode, t_game *g);
+int			move_enemy(t_game *g);
 
 /*******UTILS*******/
 
