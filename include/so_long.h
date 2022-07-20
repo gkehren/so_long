@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/15 12:07:13 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:12:08 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define PIXELS 32
+# define IMG 11
+
+# define BLACK 0
+# define CHEST_CLOSE 1
+# define CHEST_OPEN 2
+# define COIN 3
+# define ENEMY_LEFT 4
+# define ENEMY_RIGHT 5
+# define PLAYER_LEFT 6
+# define PLAYER_RIGHT 7
+# define WALL 8
+# define WHITE_IMAGE 9
+# define WHITE 10
 
 /*******STRUCT*******/
 
@@ -43,6 +56,11 @@ typedef struct s_enemy
 	int	dir;
 }	t_enemy;
 
+typedef struct img
+{
+	void	*addr;
+}	t_img;
+
 typedef struct s_game
 {
 	char		**map;
@@ -53,10 +71,11 @@ typedef struct s_game
 	int			width;
 	int			height;
 	int			frame;
-	char		*exit;
-	char		*player;
+	int			exit;
+	int			player;
 	void		*mlx;
 	void		*win;
+	t_img		*img;
 	t_player	p;
 	t_enemy		*e;
 }	t_game;
@@ -93,10 +112,12 @@ int			check_name(char *file);
 
 void		get_player_and_enemies(char **map, t_player *p, t_enemy *e);
 void		*get_image(t_game *g, char *path);
+void		generate_img(t_game *g);
 void		render_pixel(t_game *g, int i, int j);
-void		render_image(t_game *g, char *path, int i, int j);
+void		render_image(t_game *g, int n, int i, int j);
 void		render_background(char **map, t_game g);
 void		render_map(char **map, t_game *game, t_player *p, int rr);
+void		end(t_game *g);
 
 /*******MOVES*******/
 

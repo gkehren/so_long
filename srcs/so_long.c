@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 16:22:29 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:41:05 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,31 @@ void	init(t_game *g)
 	g->total_coins = 0;
 	g->frame = 0;
 	g->move = 0;
-	g->player = "./assets/player_right.xpm";
-	g->exit = "./assets/chest_close.xpm";
+	g->player = PLAYER_RIGHT;
+	g->exit = CHEST_CLOSE;
+}
+
+void	end(t_game *g)
+{
+	mlx_destroy_window(g->mlx, g->win);
+	exit(1);
 }
 
 int	close_window(t_game *g)
 {
+	int	i;
+
+	i = 0;
 	mlx_destroy_window(g->mlx, g->win);
+	free(g->e);
+	memfree(g->map);
+	free(g->map);
+	while (i < IMG + 1)
+	{
+		free(g->img[i].addr);
+		i++;
+	}
+	free(g->img);
 	exit(1);
 }
 
@@ -51,6 +69,7 @@ int	main(int argc, char **argv)
 	g.mlx = mlx_init();
 	g.win = mlx_new_window(g.mlx, (ft_strlen(g.map[0])) * PIXELS, g.height
 			* PIXELS, "so_long");
+	generate_img(&g);
 	render_background(g.map, g);
 	mlx_key_hook(g.win, move_player, &g);
 	mlx_loop_hook(g.mlx, move_enemy, &g);

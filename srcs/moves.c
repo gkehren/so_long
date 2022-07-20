@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:59:07 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 16:11:16 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:13:41 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	move_right(char **map, t_player *p, t_game *g)
 		p->x = p->x + 1;
 	else if (map[p->y][p->x + 1] == 'E' && g->coins == g->total_coins)
 		p->x = p->x + 1;
-	g->player = "./assets/player_right.xpm";
+	g->player = PLAYER_RIGHT;
 }
 
 void	move_left(char **map, t_player *p, t_game *g)
@@ -43,5 +43,5 @@ void	move_left(char **map, t_player *p, t_game *g)
 		p->x = p->x - 1;
 	else if (map[p->y][p->x - 1] == 'E' && g->coins == g->total_coins)
 		p->x = p->x - 1;
-	g->player = "./assets/player_left.xpm";
+	g->player = PLAYER_LEFT;
 }

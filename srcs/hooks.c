@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:38:35 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 16:21:33 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:13:21 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int	move_enemy(t_game *g)
 	char	*moves;
 
 	i = 0;
-	if (g->frame == 3000)
+	if (g->frame == 12000)
 	{
 		while (i < g->enemies)
 		{
 			render_pixel(g, g->e[i].y, g->e[i].x);
 			get_direction(g->map, g->e, i);
 			check_collision(g);
-			render_image(g, "./assets/enemy_right.xpm", g->e[i].y, g->e[i].x);
+			render_image(g, ENEMY_RIGHT, g->e[i].y, g->e[i].x);
 			moves = ft_itoa(g->move);
 			mlx_string_put(g->mlx, g->win, 10, 10,
 				0x00, moves);

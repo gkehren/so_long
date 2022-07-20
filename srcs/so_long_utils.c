@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:17:04 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 13:47:04 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:35:16 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	check_coins_and_exit(t_game *g, char **map)
 		render_pixel(g, g->p.y, g->p.x);
 	}
 	if (g->coins == g->total_coins)
-		g->exit = "./assets/chest_open.xpm";
+		g->exit = CHEST_OPEN;
 	if (map[g->p.y][g->p.x] == 'E' && g->coins == g->total_coins)
 	{
 		write(1, "Victoire !\n", 12);
-		exit(1);
+		end(g);
 	}
 	moves = ft_itoa(g->move);
 	mlx_string_put(g->mlx, g->win, 10, 10, 0x00000000, moves);
@@ -103,4 +103,30 @@ void	*get_image(t_game *g, char *path)
 
 	img = mlx_xpm_file_to_image(g->mlx, path, &img_w, &img_h);
 	return (img);
+}
+
+void	generate_img(t_game *g)
+{
+	int			i;
+	static char	*path[IMG] = {
+		"./assets/black.xpm",
+		"./assets/chest_close.xpm",
+		"./assets/chest_open.xpm",
+		"./assets/coin.xpm",
+		"./assets/enemy_left.xpm",
+		"./assets/enemy_right.xpm",
+		"./assets/player_left.xpm",
+		"./assets/player_right.xpm",
+		"./assets/wall.xpm",
+		"./assets/white_image.xpm",
+		"./assets/white.xpm",
+	};
+
+	i = 0;
+	g->img = malloc(sizeof(t_img) * IMG);
+	while (i < IMG)
+	{
+		g->img[i].addr = get_image(g, path[i]);
+		i++;
+	}
 }

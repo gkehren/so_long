@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:30:53 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/14 16:24:49 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 16:45:55 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	*put_image(t_game *g, int i, int j)
 	if (i % 2 == 0)
 	{
 		if (j % 2 == 0)
-			img = get_image(g, "./assets/white.xpm");
+			img = g->img[WHITE].addr;
 		else
-			img = get_image(g, "./assets/black.xpm");
+			img = g->img[BLACK].addr;
 	}
 	else
 	{
 		if (j % 2 != 0)
-			img = get_image(g, "./assets/white.xpm");
+			img = g->img[WHITE].addr;
 		else
-			img = get_image(g, "./assets/black.xpm");
+			img = g->img[BLACK].addr;
 	}
 	return (img);
 }
@@ -45,11 +45,11 @@ void	render_map(char **map, t_game *g, t_player *p, int rr)
 		while (map[i][++j])
 		{
 			if (map[i][j] == '1' && rr)
-				render_image(g, "./assets/wall.xpm", i, j);
+				render_image(g, WALL, i, j);
 			else if (map[i][j] == 'E')
 				render_image(g, g->exit, i, j);
 			else if (map[i][j] == 'C' && rr)
-				render_image(g, "./assets/coin.xpm", i, j);
+				render_image(g, COIN, i, j);
 			else if (map[i][j] != '0' && map[i][j] != 'X' &&
 				map[i][j] != 'P' && rr)
 			{
@@ -82,12 +82,9 @@ void	render_background(char **map, t_game g)
 	}
 }
 
-void	render_image(t_game *g, char *path, int i, int j)
+void	render_image(t_game *g, int n, int i, int j)
 {
-	void	*img;
-
-	img = get_image(g, path);
-	mlx_put_image_to_window(g->mlx, g->win, img,
+	mlx_put_image_to_window(g->mlx, g->win, g->img[n].addr,
 		j * PIXELS, i * PIXELS);
 }
 
@@ -95,7 +92,7 @@ void	render_pixel(t_game *g, int i, int j)
 {
 	void	*img;
 
-	img = get_image(g, "./assets/white_image.xpm");
+	img = g->img[WHITE_IMAGE].addr;
 	mlx_put_image_to_window (g->mlx, g->win, img, 0, 0);
 	img = put_image(g, i, j);
 	mlx_put_image_to_window (g->mlx, g->win, img, \
