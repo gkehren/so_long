@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:38:35 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/20 16:13:21 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:39:33 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	check_collision(t_game *g)
 		if (g->e[i].x == g->p.x && g->e[i].y == g->p.y)
 		{
 			write(1, "Perdu !\n", 9);
-			exit(1);
+			close_window(g);
 		}
 		i++;
 	}

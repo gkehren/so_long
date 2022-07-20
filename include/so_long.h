@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:27:11 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/20 16:12:08 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:39:30 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void		render_pixel(t_game *g, int i, int j);
 void		render_image(t_game *g, int n, int i, int j);
 void		render_background(char **map, t_game g);
 void		render_map(char **map, t_game *game, t_player *p, int rr);
+int			close_window(t_game *g);
 void		end(t_game *g);
 
 /*******MOVES*******/

@@ -6,11 +6,26 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 15:23:41 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/20 16:41:05 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:43:04 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+int	check_name(char *file)
+{
+	size_t	i;
+
+	i = 0;
+	while (file[i])
+		i++;
+	if (i < 4)
+		return (1);
+	else if (file[i - 4] == '.' && file[i - 3] == 'b'
+		&& file[i - 2] == 'e' && file[i - 1] == 'r')
+		return (0);
+	return (1);
+}
 
 void	memfree(char **s)
 {
@@ -31,27 +46,23 @@ void	init(t_game *g)
 	g->exit = CHEST_CLOSE;
 }
 
-void	end(t_game *g)
-{
-	mlx_destroy_window(g->mlx, g->win);
-	exit(1);
-}
-
 int	close_window(t_game *g)
 {
 	int	i;
 
 	i = 0;
-	mlx_destroy_window(g->mlx, g->win);
 	free(g->e);
 	memfree(g->map);
 	free(g->map);
-	while (i < IMG + 1)
+	while (i < IMG)
 	{
-		free(g->img[i].addr);
+		mlx_destroy_image(g->mlx, g->img[i].addr);
 		i++;
 	}
 	free(g->img);
+	mlx_destroy_window(g->mlx, g->win);
+	mlx_destroy_display(g->mlx);
+	free(g->mlx);
 	exit(1);
 }
 
@@ -76,5 +87,5 @@ int	main(int argc, char **argv)
 	render_map(g.map, &g, &g.p, 1);
 	mlx_hook(g.win, 17, 0, close_window, &g);
 	mlx_loop(g.mlx);
-	return (memfree(g.map), free(g.map), 0);
+	return (close_window(&g), 0);
 }

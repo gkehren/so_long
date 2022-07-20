@@ -6,26 +6,11 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:17:04 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/20 16:35:16 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:42:45 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-int	check_name(char *file)
-{
-	size_t	i;
-
-	i = 0;
-	while (file[i])
-		i++;
-	if (i < 4)
-		return (1);
-	else if (file[i - 4] == '.' && file[i - 3] == 'b'
-		&& file[i - 2] == 'e' && file[i - 1] == 'r')
-		return (0);
-	return (1);
-}
 
 void	get_player_and_enemies(char **map, t_player *p, t_enemy *e)
 {
@@ -70,7 +55,7 @@ void	check_coins_and_exit(t_game *g, char **map)
 	if (map[g->p.y][g->p.x] == 'E' && g->coins == g->total_coins)
 	{
 		write(1, "Victoire !\n", 12);
-		end(g);
+		close_window(g);
 	}
 	moves = ft_itoa(g->move);
 	mlx_string_put(g->mlx, g->win, 10, 10, 0x00000000, moves);
