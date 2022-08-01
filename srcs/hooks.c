@@ -6,7 +6,7 @@
 /*   By: gkehren <gkehren@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/13 00:38:35 by gkehren           #+#    #+#             */
-/*   Updated: 2022/07/20 17:39:33 by gkehren          ###   ########.fr       */
+/*   Updated: 2022/08/01 12:43:31 by gkehren          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int	move_player(int keycode, t_game *g)
 	else if (keycode == 97)
 		move_left(g->map, &g->p, g);
 	else if (keycode == 65307)
-	{
-		mlx_destroy_window(g->mlx, g->win);
-		exit(1);
-	}
+		close_window(g);
 	if (i != g->p.x || j != g->p.y)
 		g->move++;
 	check_coins_and_exit(g, g->map);
